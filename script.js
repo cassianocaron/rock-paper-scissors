@@ -1,7 +1,7 @@
 let computerScore = 0;
 let humanScore = 0;
 
-// Get a random choice from the computer
+// Get a random choice for the computer
 function computerPlay() {
     const shapes = ['Rock', 'Paper', 'Scissors'];
     const computerSelection = shapes[Math.floor(Math.random() * shapes.length)];
@@ -63,7 +63,7 @@ function calcScore(outcome) {
     }
 }
 
-// Get the winner at the end of the 5 rounds
+// Get the winner at the end of 5 rounds
 function getWinner() {
     if (computerScore > humanScore) {
         return 'Computer';
@@ -74,7 +74,6 @@ function getWinner() {
     }
 }
 
-// Play the game
 function playGame() {
     for (let i = 0; i < 5; i++) {
         const computerSelection = computerPlay();
