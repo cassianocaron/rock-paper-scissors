@@ -18,7 +18,7 @@ function computerPlay() {
 }
 
 // Play one round and return the winner of the round
-function playRound(computerSelection, humanSelection) {
+function playRound(humanSelection, computerSelection) {
     roundsPlayed++;
     if (humanSelection === computerSelection) {
         return "Tie";
@@ -66,7 +66,8 @@ function getWinner() {
 
 function playGame(humanSelection, computerSelection) {
     console.clear();    
-    const outcome = playRound(computerSelection, humanSelection);
+    const outcome = playRound(humanSelection, computerSelection);
+    console.log(`Rounds played: ${roundsPlayed}`);
     console.log(`Human plays: ${humanSelection}`);
     console.log(`Computer plays: ${computerSelection}`);
     if (outcome === 'Tie') {
@@ -76,9 +77,9 @@ function playGame(humanSelection, computerSelection) {
     }
 
     calcScore(outcome);
-
     if (roundsPlayed === 5) {
         console.clear();
+        console.log("Rounds played: 5");
         if (humanScore === 1) {
             console.log(`Human scored ${humanScore} point`);
         } else {
