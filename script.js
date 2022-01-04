@@ -1,8 +1,7 @@
 let computerScore = 0;
 let humanScore = 0;
-let roundsPlayed = 0;
 
-const buttons = document.querySelectorAll('.btn');
+const buttons = document.querySelectorAll('.button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         let humanSelection = button.id;
@@ -19,7 +18,6 @@ function computerPlay() {
 
 // Play one round and return the winner of the round
 function playRound(humanSelection, computerSelection) {
-    roundsPlayed++;
     if (humanSelection === computerSelection) {
         return "Tie";
     }
@@ -65,37 +63,19 @@ function getWinner() {
 }
 
 function playGame(humanSelection, computerSelection) {
-    console.clear();    
     const outcome = playRound(humanSelection, computerSelection);
-    console.log(`Rounds played: ${roundsPlayed}`);
-    console.log(`Human plays: ${humanSelection}`);
-    console.log(`Computer plays: ${computerSelection}`);
-    if (outcome === 'Tie') {
-        console.log("This round was a tie");
-    } else {
-        console.log(`${outcome} wins this round`);
-    }
-
     calcScore(outcome);
-    if (roundsPlayed === 5) {
-        console.clear();
-        console.log("Rounds played: 5");
-        if (humanScore === 1) {
-            console.log(`Human scored ${humanScore} point`);
-        } else {
-            console.log(`Human scored ${humanScore} points`);
-        }
-        if (computerScore === 1) {
-            console.log(`Computer scored ${computerScore} point`);
-        } else {
-            console.log(`Computer scored ${computerScore} points`);
-        }
 
+    const scores = document.querySelector('#scoreboard');
+    scores.textContent = `${humanScore} X ${computerScore}`    
+    
+    if (computerScore === 5 || humanScore === 5) {
         const winner = getWinner();
+        const result = document.querySelector('#result');
         if (winner === 'Tie') {
-            console.log("It was a tie");
+            result.textContent = 'Tie!';
         } else {
-            console.log(`The winner is: ${winner}`);
+            result.textContent = `${winner} wins!`;
         }
         resetGame();
     }
@@ -104,5 +84,4 @@ function playGame(humanSelection, computerSelection) {
 function resetGame() {
     computerScore = 0;
     humanScore = 0;
-    roundsPlayed = 0;
 }
