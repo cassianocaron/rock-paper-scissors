@@ -6,7 +6,12 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         let humanSelection = button.id;
         let computerSelection = computerPlay();
-        playGame(humanSelection, computerSelection);
+        if (computerScore < 5 && humanScore < 5) {
+            playGame(humanSelection, computerSelection);
+        } else {
+            resetGame();
+            playGame(humanSelection, computerSelection);
+        }
     });
 });
 
@@ -67,21 +72,26 @@ function playGame(humanSelection, computerSelection) {
     calcScore(outcome);
 
     const scores = document.querySelector('#scoreboard');
-    scores.textContent = `${humanScore} X ${computerScore}`    
+    scores.textContent = `Player ${humanScore} X ${computerScore} Computer`    
     
     if (computerScore === 5 || humanScore === 5) {
         const winner = getWinner();
         const result = document.querySelector('#result');
-        if (winner === 'Tie') {
-            result.textContent = 'Tie!';
-        } else {
-            result.textContent = `${winner} wins!`;
-        }
-        resetGame();
+        result.textContent = `${winner} wins!`;
+        const btn = document.createElement('button');
+        btn.setAttribute('id', 'play-again');
+        btn.innerHTML = 'Play Again';
+        btn.onclick = () => {
+            resetGame();
+        };
+        document.body.appendChild(btn);
     }
 }
 
 function resetGame() {
     computerScore = 0;
     humanScore = 0;
+    document.querySelector('#scoreboard').textContent = '';
+    document.querySelector('#result').textContent = '';
+    document.getElementById('play-again').remove();
 }
