@@ -71,6 +71,13 @@ function playGame(humanSelection, computerSelection) {
     const outcome = playRound(humanSelection, computerSelection);
     calcScore(outcome);
 
+    const roundOutcome = document.querySelector('#round-result');
+    if (outcome === 'Tie') {
+        roundOutcome.textContent = `You play ${humanSelection} - Computer plays ${computerSelection} -> ${outcome}!`;
+    } else {
+        roundOutcome.textContent = `You play ${humanSelection} - Computer plays ${computerSelection} -> ${outcome} wins this round!`;
+    }
+
     const scores = document.querySelector('#scoreboard');
     scores.textContent = `Player ${humanScore} X ${computerScore} Computer`    
     
@@ -80,17 +87,28 @@ function playGame(humanSelection, computerSelection) {
         result.textContent = `${winner} wins!`;
         const btn = document.createElement('button');
         btn.setAttribute('id', 'play-again');
-        btn.innerHTML = 'Play Again';
+        btn.innerHTML = 'Play Again';        
         btn.onclick = () => {
             resetGame();
-        };
+        }
         document.body.appendChild(btn);
+        const playAgainBtn = document.querySelector('#play-again');
+        playAgainBtn.style.position = 'absolute';
+        playAgainBtn.style.left = '50%';
+        playAgainBtn.style.transform = 'translateX(-50%)';
+        playAgainBtn.style.padding = '10px 15px';
+        playAgainBtn.style.borderColor = 'black';
+        playAgainBtn.style.borderRadius = '5px';
+        playAgainBtn.style.backgroundColor = '#74F69C';
+        playAgainBtn.style.fontSize = '15px';
+        playAgainBtn.style.fontWeight = '600';
     }
 }
 
 function resetGame() {
     computerScore = 0;
     humanScore = 0;
+    document.querySelector('#round-result').textContent = '';
     document.querySelector('#scoreboard').textContent = '';
     document.querySelector('#result').textContent = '';
     document.getElementById('play-again').remove();
